@@ -1,4 +1,4 @@
-package def.agoramain.review;
+package def.agoramain.review.repo;
 
 import def.agoramain.review.entity.Review;
 import org.springframework.data.domain.Page;

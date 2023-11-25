@@ -1,4 +1,4 @@
-package def.agoramain.review;
+package def.agoramain.review.dto;
 
 import def.agoramain.review.entity.Review;
 import lombok.Getter;
