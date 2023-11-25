@@ -1,7 +1,6 @@
 package def.agoramain.review;
 
 import def.agoramain.review.entity.Review;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
