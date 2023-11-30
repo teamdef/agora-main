@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:public;
+      username: sa
+      password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    defer-datasource-initialization: true # ddl-auto 실행후 data.sql 실행되도록
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+      data-locations: classpath:data.sql
