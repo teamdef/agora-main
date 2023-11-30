@@ -1,4 +1,4 @@
-package def.agoramain.review.entity;
+package def.agoramain.review.problem.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
