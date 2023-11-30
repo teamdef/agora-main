@@ -2,6 +2,7 @@ package def.agoramain.review.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,14 @@ public class ReviewMember {
     private Long ReviewId;
     @NotNull
     private Long memberId;
-    @NotNull @Embedded @Enumerated(value = EnumType.STRING)
+    @NotNull @Enumerated(value = EnumType.STRING)
     private ReviewAuth auth;
+
+    @Builder
+    public ReviewMember(Long ReviewId, Long memberId, ReviewAuth auth) {
+        this.ReviewId = ReviewId;
+        this.memberId = memberId;
+        this.auth = auth;
+    }
 
 }
