@@ -7,14 +7,12 @@ import lombok.Getter;
 
 @Getter
 public class ProblemRequestDto {
-    @NotBlank(message = "주간회고 ID를 입력하세요.")
+    @NotNull(message = "주간회고 ID를 입력하세요.")
     private Long reviewId;
 
     @NotEmpty(message = "문제 내용을 입력하세요.")
     private String content;
 
-    @NotBlank(message = "문제를 제기한 유저의 ID를 입력하세요.")
+    @NotNull(message = "문제를 제기한 유저의 ID를 입력하세요.")
     private Long createdMemberId;
-
-
 }
