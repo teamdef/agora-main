@@ -39,4 +39,13 @@ public class ReviewController {
 
         reviewService.deleteReview(reviewId);
     }
+
+    @DeleteMapping("/{reviewId}/members")
+    public void deleteReview(
+            @PathVariable("reviewId") Long reviewId,
+            @RequestParam("memberIds") List<Long> memberIds
+    ) {
+
+        reviewService.deleteReviewMember(reviewId, memberIds);
+    }
 }

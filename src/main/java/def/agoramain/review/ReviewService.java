@@ -41,8 +41,21 @@ public class ReviewService {
 
     @Transactional
     public void deleteReview(Long reviewId) {
+
         reviewRepo.deleteById(reviewId);
         reviewMemberRepo.deleteAllByReviewId(reviewId);
+    }
+
+    @Transactional
+    public void deleteReviewMember(Long reviewId, List<Long> memberIds) {
+
+        List<ReviewMember> reviewMembers = reviewMemberRepo.findAllByReviewId(reviewId);
+        List<ReviewMember> filterMembers = reviewMembers
+                .stream()
+                .filter(reviewMember -> memberIds.contains(reviewMember.getMemberId()))
+                .collect(Collectors.toList());
+
+        reviewMemberRepo.deleteAll(filterMembers);
     }
 
     private void mapReviewMembers(Long reviewId, ReqReviewDto reviewDto) {
