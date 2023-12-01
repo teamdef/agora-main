@@ -39,6 +39,12 @@ public class ReviewService {
 
     }
 
+    @Transactional
+    public void deleteReview(Long reviewId) {
+        reviewRepo.deleteById(reviewId);
+        reviewMemberRepo.deleteAllByReviewId(reviewId);
+    }
+
     private void mapReviewMembers(Long reviewId, ReqReviewDto reviewDto) {
 
         reviewMemberRepo.save(ReviewMember.builder()

@@ -31,4 +31,12 @@ public class ReviewController {
 
         reviewService.makeReview(reqReview);
     }
+
+    @DeleteMapping("/{reviewId}")
+    public void deleteReview(
+            @PathVariable("reviewId") Long reviewId
+    ) {
+
+        reviewService.deleteReview(reviewId);
+    }
 }

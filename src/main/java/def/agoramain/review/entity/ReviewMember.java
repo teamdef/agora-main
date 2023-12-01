@@ -15,7 +15,7 @@ public class ReviewMember {
     @GeneratedValue
     private long id;
     @NotNull
-    private Long ReviewId;
+    private Long reviewId;
     @NotNull
     private Long memberId;
     @NotNull @Enumerated(value = EnumType.STRING)
@@ -23,7 +23,7 @@ public class ReviewMember {
 
     @Builder
     public ReviewMember(Long ReviewId, Long memberId, ReviewAuth auth) {
-        this.ReviewId = ReviewId;
+        this.reviewId = ReviewId;
         this.memberId = memberId;
         this.auth = auth;
     }

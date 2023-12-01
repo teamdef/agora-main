@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewMemberRepo extends JpaRepository<ReviewMember, Long> {
 
+    void deleteAllByReviewId(Long reviewId);
 }
