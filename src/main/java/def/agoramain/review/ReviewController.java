@@ -1,6 +1,7 @@
 package def.agoramain.review;
 
 import def.agoramain.review.dto.ReqReviewDto;
+import def.agoramain.review.dto.ReviewDetailDto;
 import def.agoramain.review.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,13 @@ public class ReviewController {
             @RequestParam long projectId) {
 
         return ResponseEntity.ok(reviewService.findReviews(projectId, PageRequest.of(page - 1, size)));
+    }
+
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<ReviewDetailDto> getReviewDetail(
+            @PathVariable Long reviewId) throws Exception{
+
+        return ResponseEntity.ok(reviewService.findReviewDetail(reviewId));
     }
 
     @PostMapping
