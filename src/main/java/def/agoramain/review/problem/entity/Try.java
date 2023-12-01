@@ -1,4 +1,4 @@
-package def.agoramain.review.entity;
+package def.agoramain.review.problem.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,17 +10,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Problem {
+public class Try {
 
     @Id @GeneratedValue
     private Long id;
     @NotNull
-    private Long reviewId;
-    @NotNull
-    private String content;
+    private Long problemId;
     @NotNull
     private Long createMemberId;
     @NotNull
-    private Status status;
-
+    private String content;
 }

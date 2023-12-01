@@ -1,4 +1,4 @@
-package def.agoramain.review.entity;
+package def.agoramain.review.problem.entity;
 
 import lombok.Getter;
 
