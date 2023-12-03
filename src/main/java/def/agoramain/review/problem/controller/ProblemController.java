@@ -1,19 +1,19 @@
 package def.agoramain.review.problem.controller;
 
-import def.agoramain.review.problem.dto.response.ProblemDetailResponseDto;
+import def.agoramain.review.problem.dto.response.ProblemDetailResDto;
 import def.agoramain.review.problem.entity.Problem;
 import def.agoramain.review.problem.service.ProblemService;
-import def.agoramain.review.problem.dto.request.ProblemRequestDto;
+import def.agoramain.review.problem.dto.request.ProblemReqDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Problem", description = "회고 속 문제에 대한 API")
 @RestController()
@@ -28,12 +28,19 @@ public class ProblemController {
     })
     @Operation(summary = "문제 생성", description = "회고에 대한 문제를 생성합니다.")
     @PostMapping()
-    public void saveProblem(@Valid @RequestBody ProblemRequestDto problemRequestDto) {
-        Problem problem = problemRequestDto.toEntity();
+    public void saveProblem(@Valid @RequestBody ProblemReqDto problemReqDto) throws Exception {
+        Problem problem = problemReqDto.toEntity();
         this.problemService.saveProblem(problem);
     }
 
-    public ProblemDetailResponseDto getProblemDetail(Long problemId) throws Exception{
-        return this.problemService.getProblemDetail(problemId);
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "문제 상세 조회 성공"),
+            @ApiResponse(responseCode = "500", description = "문제 상세 조회 실패", content = @Content)
+    })
+    @Operation(summary = "문제 상세 조회", description = "문제와 연관된 시도를 포함한 상세 정보를 조회합니다.")
+    @GetMapping("/{problemId}")
+    public ResponseEntity<ProblemDetailResDto> getProblemDetail(
+            @PathVariable("problemId") @NotNull Long problemId) throws Exception{
+        return ResponseEntity.ok(this.problemService.getProblemDetail(problemId));
     }
 }

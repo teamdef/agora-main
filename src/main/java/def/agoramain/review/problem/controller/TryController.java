@@ -1,6 +1,6 @@
 package def.agoramain.review.problem.controller;
 
-import def.agoramain.review.problem.dto.request.TryRequestDto;
+import def.agoramain.review.problem.dto.request.TryReqDto;
 import def.agoramain.review.problem.entity.Try;
 import def.agoramain.review.problem.service.TryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public class TryController {
     })
     @Operation(summary = "시도 생성", description = "문제에 대한 시도를 제기합니다.")
     @PostMapping()
-    public void saveTry(@Valid @RequestBody TryRequestDto tryRequestDto) {
+    public void saveTry(@Valid @RequestBody TryReqDto tryRequestDto) throws Exception{
         Try tryEntity = tryRequestDto.toEntity();
         this.tryService.saveTry(tryEntity);
     }

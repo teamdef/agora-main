@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Schema(description = "시도 생성 요청 모델")
 @Getter
-public class TryRequestDto {
+public class TryReqDto {
     @Schema(description = "문제 ID", example = "1")
     @NotNull(message = "문제 ID를 입력하세요.")
     private Long problemId;
