@@ -31,4 +31,8 @@ public class TryService {
         tryEntity.updateContent(content);
         this.tryRepo.save(tryEntity);
     }
+
+    public void deleteTry(Long tryId){
+        this.tryRepo.deleteById(tryId);
+    }
 }

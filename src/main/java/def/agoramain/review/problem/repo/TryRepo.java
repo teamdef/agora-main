@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TryRepo extends JpaRepository<Try,Long> {
     List<Try> findAllByProblemId(Long problemId);
+    void deleteAllByProblemId(Long problemId);
 }

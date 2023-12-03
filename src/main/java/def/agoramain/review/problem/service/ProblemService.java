@@ -63,4 +63,10 @@ public class ProblemService {
         problem.updateContent(content);
         this.problemRepo.save(problem);
     }
+
+    @Transactional
+    public void deleteProblem(Long problemId) {
+        this.problemRepo.deleteById(problemId);
+        this.tryRepo.deleteAllByProblemId(problemId);
+    }
 }

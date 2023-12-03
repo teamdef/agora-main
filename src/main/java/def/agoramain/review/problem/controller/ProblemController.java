@@ -69,4 +69,15 @@ public class ProblemController {
             @RequestBody @NotNull String content) throws Exception{
         this.problemService.modifyProblemContent(problemId, content);
     }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "문제 삭제 성공"),
+            @ApiResponse(responseCode = "500", description = "문제 삭제 실패")
+    })
+    @Operation(summary = "문제 삭제", description = "문제를 삭제합니다. 연관된 시도도 모두 삭제됩니다.")
+    @DeleteMapping("/{problemId}")
+    public void deleteProblem(
+            @PathVariable("problemId") @NotNull Long problemId){
+        this.problemService.deleteProblem(problemId);
+    }
 }

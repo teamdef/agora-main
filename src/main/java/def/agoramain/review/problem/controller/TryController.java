@@ -43,4 +43,15 @@ public class TryController {
             @RequestBody @NotNull String content) throws Exception{
         this.tryService.updateTryContent(tryId, content);
     }
+
+    @ApiResponses(value ={
+            @ApiResponse(responseCode = "200", description = "시도 삭제 성공"),
+            @ApiResponse(responseCode = "500", description = "시도 삭제 실패")
+    })
+    @Operation(summary = "시도 삭제", description = "시도를 삭제합니다.")
+    @DeleteMapping("/{tryId}")
+    public void deleteTry(
+            @PathVariable("tryId") Long tryId) {
+        this.tryService.deleteTry(tryId);
+    }
 }
