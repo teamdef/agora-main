@@ -36,4 +36,8 @@ public class Problem {
         this.status = status;
     }
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
 }

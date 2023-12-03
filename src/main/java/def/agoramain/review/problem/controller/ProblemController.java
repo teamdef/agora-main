@@ -57,4 +57,16 @@ public class ProblemController {
             @PathVariable("status") @NotNull @Parameter(description = "변경될 상태") Status status) throws Exception{
         this.problemService.modifyProblemStatus(problemId, status);
     }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "문제 내용 변경 성공"),
+            @ApiResponse(responseCode = "500", description = "문제 내용 변경 실패")
+    })
+    @Operation(summary = "문제 내용 변경", description = "문제의 내용을 변경합니다.")
+    @PatchMapping("/{problemId}/content")
+    public void modifyProblemContent(
+            @PathVariable("problemId") @NotNull Long problemId,
+            @RequestBody @NotNull @Parameter(description = "변경될 내용") String content) throws Exception{
+        this.problemService.modifyProblemContent(problemId, content);
+    }
 }

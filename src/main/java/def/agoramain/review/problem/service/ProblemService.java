@@ -53,4 +53,14 @@ public class ProblemService {
         problem.updateStatus(status);
         this.problemRepo.save(problem);
     }
+
+    @Transactional
+    public void modifyProblemContent(Long problemId, String content) throws Exception{
+        Problem problem = this.problemRepo
+                .findById(problemId)
+                .orElseThrow(()-> new ClassNotFoundException("해당하는 문제가 없습니다."));
+
+        problem.updateContent(content);
+        this.problemRepo.save(problem);
+    }
 }
