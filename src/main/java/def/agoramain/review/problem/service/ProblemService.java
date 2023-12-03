@@ -2,6 +2,7 @@ package def.agoramain.review.problem.service;
 
 import def.agoramain.review.problem.dto.response.ProblemDetailResDto;
 import def.agoramain.review.problem.entity.Problem;
+import def.agoramain.review.problem.entity.Status;
 import def.agoramain.review.problem.entity.Try;
 import def.agoramain.review.problem.repo.ProblemRepo;
 import def.agoramain.review.problem.repo.TryRepo;
@@ -41,5 +42,15 @@ public class ProblemService {
         List<Try> tries = this.tryRepo.findAllByProblemId(problemId);
 
         return new ProblemDetailResDto(problem, tries);
+    }
+
+    @Transactional
+    public void modifyProblemStatus(Long problemId, Status status) throws Exception{
+        Problem problem = this.problemRepo
+                .findById(problemId)
+                .orElseThrow(()-> new ClassNotFoundException("해당하는 문제가 없습니다."));
+
+        problem.updateStatus(status);
+        this.problemRepo.save(problem);
     }
 }

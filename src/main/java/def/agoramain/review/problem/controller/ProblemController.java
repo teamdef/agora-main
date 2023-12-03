@@ -2,9 +2,11 @@ package def.agoramain.review.problem.controller;
 
 import def.agoramain.review.problem.dto.response.ProblemDetailResDto;
 import def.agoramain.review.problem.entity.Problem;
+import def.agoramain.review.problem.entity.Status;
 import def.agoramain.review.problem.service.ProblemService;
 import def.agoramain.review.problem.dto.request.ProblemReqDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -42,5 +44,17 @@ public class ProblemController {
     public ResponseEntity<ProblemDetailResDto> getProblemDetail(
             @PathVariable("problemId") @NotNull Long problemId) throws Exception{
         return ResponseEntity.ok(this.problemService.getProblemDetail(problemId));
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "문제 상태 변경 성공"),
+            @ApiResponse(responseCode = "500", description = "문제 상태 변경 실패")
+    })
+    @Operation(summary = "문제 상태 변경", description = "문제의 상태를 변경합니다.")
+    @PatchMapping("/{problemId}/status/{status}")
+    public void modifyProblemStatus(
+            @PathVariable("problemId") @NotNull Long problemId,
+            @PathVariable("status") @NotNull @Parameter(description = "변경될 상태") Status status) throws Exception{
+        this.problemService.modifyProblemStatus(problemId, status);
     }
 }

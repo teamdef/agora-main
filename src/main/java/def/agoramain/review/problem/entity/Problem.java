@@ -32,4 +32,8 @@ public class Problem {
         this.status = status;
     }
 
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
+
 }
