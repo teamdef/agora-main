@@ -23,25 +23,18 @@ public class ProblemService {
     private final ReviewMemberRepo reviewMemberRepo;
 
     @Transactional
-    public void saveProblem(ProblemRequestDto problemRequestDto){
-        Optional<Review> review = this.reviewRepo.findById(problemRequestDto.getReviewId());
+    public void saveProblem(Problem problem){
+        Optional<Review> review = this.reviewRepo.findById(problem.getReviewId());
         if(review.isEmpty()){
             // TODO: exception handler 추가
             throw new NotFoundException("reviewId가 유효하지 않습니다.");
         }
 
-        Optional<ReviewMember> reviewMember = this.reviewMemberRepo.findById(problemRequestDto.getCreatedMemberId());
+        Optional<ReviewMember> reviewMember = this.reviewMemberRepo.findById(problem.getCreateMemberId());
         if(reviewMember.isEmpty()){
             // TODO: exception handler 추가
             throw new NotFoundException("reviewMemberId가 유효하지 않습니다.");
         }
-
-        Problem problem = Problem.builder()
-                .content(problemRequestDto.getContent())
-                .createMemberId(problemRequestDto.getCreatedMemberId())
-                .reviewId(problemRequestDto.getReviewId())
-                .status(Status.Start)
-                .build();
 
         this.problemRepo.save(problem);
     }

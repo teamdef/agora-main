@@ -1,5 +1,6 @@
 package def.agoramain.review.problem.controller;
 
+import def.agoramain.review.problem.entity.Problem;
 import def.agoramain.review.problem.service.ProblemService;
 import def.agoramain.review.problem.dto.request.ProblemRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +28,8 @@ public class ProblemController {
     @Operation(summary = "문제 생성", description = "회고에 대한 문제를 생성합니다.")
     @PostMapping()
     public void saveProblem(@Valid @RequestBody ProblemRequestDto problemRequestDto) {
-        this.problemService.saveProblem(problemRequestDto);
+        Problem problem = problemRequestDto.toEntity();
+        this.problemService.saveProblem(problem);
     }
 
 }
