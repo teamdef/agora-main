@@ -66,7 +66,7 @@ public class ProblemController {
     @PatchMapping("/{problemId}/content")
     public void modifyProblemContent(
             @PathVariable("problemId") @NotNull Long problemId,
-            @RequestBody @NotNull @Parameter(description = "변경될 내용") String content) throws Exception{
+            @RequestBody @NotNull String content) throws Exception{
         this.problemService.modifyProblemContent(problemId, content);
     }
 }

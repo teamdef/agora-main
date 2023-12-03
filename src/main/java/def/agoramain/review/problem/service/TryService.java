@@ -21,4 +21,14 @@ public class TryService {
 
         this.tryRepo.save(tryEntity);
     }
+
+    @Transactional
+    public void updateTryContent(Long tryId, String content) throws Exception{
+        Try tryEntity = this.tryRepo
+                .findById(tryId)
+                .orElseThrow(()-> new ClassNotFoundException("해당하는 시도가 없습니다."));
+
+        tryEntity.updateContent(content);
+        this.tryRepo.save(tryEntity);
+    }
 }

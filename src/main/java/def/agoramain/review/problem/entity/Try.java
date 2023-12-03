@@ -28,4 +28,8 @@ public class Try {
         this.createMemberId = createMemberId;
         this.content = content;
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
