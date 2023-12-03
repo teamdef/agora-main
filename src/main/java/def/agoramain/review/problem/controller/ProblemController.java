@@ -1,5 +1,6 @@
 package def.agoramain.review.problem.controller;
 
+import def.agoramain.review.problem.dto.response.ProblemDetailResponseDto;
 import def.agoramain.review.problem.entity.Problem;
 import def.agoramain.review.problem.service.ProblemService;
 import def.agoramain.review.problem.dto.request.ProblemRequestDto;
@@ -32,4 +33,7 @@ public class ProblemController {
         this.problemService.saveProblem(problem);
     }
 
+    public ProblemDetailResponseDto getProblemDetail(Long problemId) throws Exception{
+        return this.problemService.getProblemDetail(problemId);
+    }
 }
