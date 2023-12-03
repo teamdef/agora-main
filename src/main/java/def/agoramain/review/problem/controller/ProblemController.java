@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @Tag(name = "Problem", description = "회고 속 문제에 대한 API")
 @RestController()
 @RequestMapping("/problem")
@@ -27,7 +26,8 @@ public class ProblemController {
     })
     @Operation(summary = "문제 생성", description = "회고에 대한 문제를 생성합니다.")
     @PostMapping()
-    public void saveProblem(@Valid @RequestBody ProblemRequestDto problemRequestDto){
+    public void saveProblem(@Valid @RequestBody ProblemRequestDto problemRequestDto) {
         this.problemService.saveProblem(problemRequestDto);
     }
+
 }

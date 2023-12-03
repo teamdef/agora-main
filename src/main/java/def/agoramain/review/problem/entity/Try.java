@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,11 @@ public class Try {
     private Long createMemberId;
     @NotNull
     private String content;
+
+    @Builder
+    public Try(Long problemId, Long createMemberId, String content) {
+        this.problemId = problemId;
+        this.createMemberId = createMemberId;
+        this.content = content;
+    }
 }
