@@ -3,10 +3,13 @@ package def.agoramain.review;
 import def.agoramain.review.dto.ReqReviewDto;
 import def.agoramain.review.dto.ReviewDetailDto;
 import def.agoramain.review.dto.ReviewDto;
-import def.agoramain.review.entity.Member;
-import def.agoramain.review.entity.Review;
-import def.agoramain.review.entity.ReviewAuth;
-import def.agoramain.review.entity.ReviewMember;
+import def.agoramain.review.entity.*;
+import def.agoramain.review.keep.repo.KeepRepo;
+import def.agoramain.review.problem.dto.response.ProblemDetailResDto;
+import def.agoramain.review.problem.entity.Problem;
+import def.agoramain.review.problem.entity.Try;
+import def.agoramain.review.problem.repo.ProblemRepo;
+import def.agoramain.review.problem.repo.TryRepo;
 import def.agoramain.review.repo.ReviewMemberRepo;
 import def.agoramain.review.repo.ReviewRepo;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static def.agoramain.common.URL.MEMBER_DETAIL_REQUEST_URL;
@@ -28,15 +31,48 @@ import static def.agoramain.common.URL.MEMBER_DETAIL_REQUEST_URL;
 @RequiredArgsConstructor
 public class ReviewService {
 
+    private final KeepRepo keepRepo;
+    private final ProblemRepo problemRepo;
+    private final TryRepo tryRepo;
     private final RestTemplate restTemplate = new RestTemplate();
     private final ReviewRepo reviewRepo;
     private final ReviewMemberRepo reviewMemberRepo;
 
+    // TODO: 하.. 일단 되게만 하고 쿼리하는 부분 다 바꿔야 함
     public List<ReviewDto> findReviews(Long projectId, Pageable page) {
 
         Page<Review> reviews = reviewRepo.findAllByProjectIdOrderByCreateTime(projectId, page);
 
-        return reviews.getContent().stream().map(ReviewDto::new).collect(Collectors.toList());
+        // member 들의 unique Set 을 구해서 한번에 요청 하기 위한 용도임
+        Set<Long> uniqueMemberIds = new HashSet<>();
+
+        List<List<Long>> membersInReviews = reviews.stream().map(review -> {
+            List<Long> memberIds = reviewMemberRepo.findAllByReviewId(review.getId())
+                    .stream().map(ReviewMember::getMemberId).toList();
+            uniqueMemberIds.addAll(memberIds);
+            return memberIds;
+        }).toList();
+
+        // member 정보 조회
+        List<Member> members = requestMembers(uniqueMemberIds.stream().toList());
+        Map<Long, Member> memberMap = members
+                .stream()
+                .collect(Collectors.toMap(Member::getId, Function.identity()));
+
+        Iterator<Review> reviewsIt = reviews.getContent().stream().iterator();
+        Iterator<List<Long>> memberIdsIt = membersInReviews.iterator();
+        List<ReviewDto> reviewDtos = new ArrayList<>();
+
+        while(reviewsIt.hasNext() && memberIdsIt.hasNext()){
+            List<Member> engagedMembers = memberIdsIt
+                    .next()
+                    .stream()
+                    .map(memberMap::get)
+                    .toList();
+            reviewDtos.add(new ReviewDto(reviewsIt.next(), engagedMembers));
+        }
+
+        return reviewDtos;
     }
 
     @Transactional
@@ -74,9 +110,28 @@ public class ReviewService {
                 .map(ReviewMember::getMemberId)
                 .collect(Collectors.toList());
 
-        List<Member> members = requestMembers(memberIds);
+        // TODO: review_member 테이블 활용 필요
+        Long creatorId = review.getCreateMemberId();
+        memberIds.add(creatorId);
 
-        return new ReviewDetailDto(review, members);
+        List<Member> members = requestMembers(memberIds);
+        List<Keep> keeps = keepRepo.findAllByReviewId(reviewId);
+        List<Problem> problems = problemRepo.findAllByReviewId(reviewId);
+
+        // TODO: 그.. join 사용하는 방법 적용해서 쿼리 날려야 함.
+        List<ProblemDetailResDto> problemResults = problems
+                .stream()
+                .map(problem -> {
+                    List<Try> tries = tryRepo.findAllByProblemId(problem.getId());
+                    return new ProblemDetailResDto(problem, tries);
+                }).toList();
+
+        Member creator = members.stream()
+                .filter(member-> member.getId().equals(creatorId))
+                .toList()
+                .get(0);
+
+        return new ReviewDetailDto(review, members, problemResults, keeps, creator);
 
     }
 

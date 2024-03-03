@@ -6,6 +6,6 @@ import lombok.Getter;
 public class Member {
 
     private Long id;
-    private String nickName;
+    private String nickname;
     private String img;
 }

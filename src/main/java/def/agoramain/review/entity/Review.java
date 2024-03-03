@@ -21,17 +21,21 @@ public class Review {
     private String title;
     @NotNull
     private String content;
+    // TODO: review_member 테이블 활용 필요
+    @NotNull
+    private Long createMemberId;
     @NotNull
     private LocalDateTime createTime;
     @NotNull
     private Long projectId;
 
     @Builder
-    public Review(String title, String content, Long projectId) {
+    public Review(String title, String content, Long createMemberId, Long projectId, LocalDateTime createTime) {
         this.title = title;
         this.content = content;
-        this.createTime = LocalDateTime.now();
+        this.createTime = createTime;
         this.projectId = projectId;
+        this.createMemberId = createMemberId;
     }
 
 }

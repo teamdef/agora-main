@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,6 +16,7 @@ public class ReqReviewDto {
     private Long projectId;
     private Long createMemberId;
     private List<Long> JoinMemberIds;
+    private LocalDateTime createTime;
     private String title;
     private String content;
 
@@ -23,6 +25,8 @@ public class ReqReviewDto {
                 .projectId(projectId)
                 .title(title)
                 .content(content)
+                .createMemberId(createMemberId)
+                .createTime(createTime)
                 .build();
     }
 }
