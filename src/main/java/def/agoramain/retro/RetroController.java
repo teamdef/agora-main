@@ -20,11 +20,11 @@ public class RetroController {
 
     @GetMapping
     public ResponseEntity<List<RetroDto>> getRetros(
-            @RequestParam int page,
-            @RequestParam int size,
+            @RequestParam int pageNo,
+            @RequestParam int listSize,
             @RequestParam long projectId) {
 
-        return ResponseEntity.ok(retroService.findRetros(projectId, PageRequest.of(page - 1, size)));
+        return ResponseEntity.ok(retroService.findRetros(projectId, PageRequest.of(pageNo - 1, listSize)));
     }
 
     @GetMapping("/{retroId}")

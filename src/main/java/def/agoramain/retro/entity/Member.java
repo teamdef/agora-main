@@ -7,5 +7,6 @@ public class Member {
 
     private Long id;
     private String nickname;
-    private String img;
+    private String name;
+    private String profileImg;
 }
