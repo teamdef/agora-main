@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum URL {
-    MEMBER_DETAIL_REQUEST_URL("http://localhost:8080/members");
+
+    MEMBER_DETAIL_REQUEST_URL("http://account:8080/members");
 
     private final String url;
 
