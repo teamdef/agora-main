@@ -1,9 +1,10 @@
-package def.agoramain.retro.entity;
+package def.agoramain.retro.keep.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,5 +20,12 @@ public class Keep {
     @NotNull
     private String content;
     @NotNull
-    private Long createMemberId;
+    private Long authorId;
+
+    @Builder
+    public Keep(Long retroId, String content, Long authorId){
+        this.retroId = retroId;
+        this.authorId = authorId;
+        this.content = content;
+    }
 }

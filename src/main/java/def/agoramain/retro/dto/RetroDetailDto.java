@@ -1,6 +1,6 @@
 package def.agoramain.retro.dto;
 
-import def.agoramain.retro.entity.Keep;
+import def.agoramain.retro.keep.entity.Keep;
 import def.agoramain.retro.entity.Member;
 import def.agoramain.retro.entity.Retro;
 import def.agoramain.retro.problem.dto.response.ProblemDetailResDto;

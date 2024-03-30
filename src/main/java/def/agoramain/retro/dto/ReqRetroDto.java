@@ -14,7 +14,7 @@ import java.util.List;
 public class ReqRetroDto {
 
     private Long projectId;
-    private Long createMemberId;
+    private Long authorId;
     private List<Long> JoinMemberIds;
     private LocalDateTime createTime;
     private String title;
@@ -25,7 +25,7 @@ public class ReqRetroDto {
                 .projectId(projectId)
                 .title(title)
                 .content(content)
-                .createMemberId(createMemberId)
+                .authorId(authorId)
                 .createTime(createTime)
                 .build();
     }

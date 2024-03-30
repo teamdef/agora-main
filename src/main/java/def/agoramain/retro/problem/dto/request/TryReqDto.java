@@ -19,12 +19,12 @@ public class TryReqDto {
 
     @Schema(description = "시도를 제기한 유저의 ID", example = "1")
     @NotNull(message = "시도를 제기한 유저의 ID를 입력하세요.")
-    private Long createdMemberId;
+    private Long authorId;
 
     public Try toEntity(){
         return Try.builder()
                 .problemId(problemId)
-                .createMemberId(createdMemberId)
+                .authorId(authorId)
                 .content(content)
                 .build();
     }

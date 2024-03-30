@@ -18,7 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Problem", description = "회고 속 문제에 대한 API")
-@RestController()
+@RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/problem")
 @RequiredArgsConstructor
 public class ProblemController {
@@ -29,7 +30,7 @@ public class ProblemController {
             @ApiResponse(responseCode = "500", description = "문제 생성 실패")
     })
     @Operation(summary = "문제 생성", description = "회고에 대한 문제를 생성합니다.")
-    @PostMapping()
+    @PostMapping
     public void saveProblem(@Valid @RequestBody ProblemReqDto problemReqDto) throws Exception {
         Problem problem = problemReqDto.toEntity();
         this.problemService.saveProblem(problem);

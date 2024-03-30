@@ -23,19 +23,19 @@ public class Retro {
     private String content;
     // TODO: retro_member 테이블 활용 필요
     @NotNull
-    private Long createMemberId;
+    private Long authorId;
     @NotNull
     private LocalDateTime createTime;
     @NotNull
     private Long projectId;
 
     @Builder
-    public Retro(String title, String content, Long createMemberId, Long projectId, LocalDateTime createTime) {
+    public Retro(String title, String content, Long authorId, Long projectId, LocalDateTime createTime) {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
         this.projectId = projectId;
-        this.createMemberId = createMemberId;
+        this.authorId = authorId;
     }
 
 }

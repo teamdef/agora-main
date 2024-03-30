@@ -18,14 +18,14 @@ public class Try {
     @NotNull
     private Long problemId;
     @NotNull
-    private Long createMemberId;
+    private Long authorId;
     @NotNull
     private String content;
 
     @Builder
-    public Try(Long problemId, Long createMemberId, String content) {
+    public Try(Long problemId, Long authorId, String content) {
         this.problemId = problemId;
-        this.createMemberId = createMemberId;
+        this.authorId = authorId;
         this.content = content;
     }
 

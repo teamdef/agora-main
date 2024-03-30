@@ -28,7 +28,7 @@ public class ProblemService {
                 .findById(problem.getRetroId())
                 .orElseThrow(()-> new ClassNotFoundException("해당하는 회고가 없습니다."));
         this.retroMemberRepo
-                .findById(problem.getCreateMemberId())
+                .findById(problem.getAuthorId())
                 .orElseThrow(()-> new ClassNotFoundException("해당하는 유저가 회고에 없습니다."));
 
         this.problemRepo.save(problem);

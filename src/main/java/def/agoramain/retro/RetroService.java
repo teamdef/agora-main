@@ -4,6 +4,7 @@ import def.agoramain.retro.dto.ReqRetroDto;
 import def.agoramain.retro.dto.RetroDetailDto;
 import def.agoramain.retro.dto.RetroDto;
 import def.agoramain.retro.entity.*;
+import def.agoramain.retro.keep.entity.Keep;
 import def.agoramain.retro.keep.repo.KeepRepo;
 import def.agoramain.retro.problem.dto.response.ProblemDetailResDto;
 import def.agoramain.retro.problem.entity.Problem;
@@ -48,7 +49,9 @@ public class RetroService {
 
         List<List<Long>> membersInRetros = retros.stream().map(retro -> {
             List<Long> memberIds = retroMemberRepo.findAllByRetroId(retro.getId())
-                    .stream().map(RetroMember::getMemberId).toList();
+                    .stream()
+                    .filter(member -> member.getAuth() == RetroAuth.PARTICIPANT)
+                    .map(RetroMember::getMemberId).toList();
             uniqueMemberIds.addAll(memberIds);
             return memberIds;
         }).toList();
@@ -107,11 +110,12 @@ public class RetroService {
         Retro retro = retroRepo.findById(retroId).orElseThrow(ClassNotFoundException::new);
         List<Long> memberIds = retroMemberRepo.findAllByRetroId(retroId)
                 .stream()
+                .filter(member -> member.getAuth() == RetroAuth.PARTICIPANT)
                 .map(RetroMember::getMemberId)
                 .collect(Collectors.toList());
 
         // TODO: retro_member 테이블 활용 필요
-        Long creatorId = retro.getCreateMemberId();
+        Long creatorId = retro.getAuthorId();
         memberIds.add(creatorId);
 
         List<Member> members = requestMembers(memberIds);
@@ -153,15 +157,15 @@ public class RetroService {
 
         retroMemberRepo.save(RetroMember.builder()
                 .retroId(retroId)
-                .memberId(retroDto.getCreateMemberId())
-                .auth(RetroAuth.ADMIN)
+                .memberId(retroDto.getAuthorId())
+                .auth(RetroAuth.AUTHOR)
                 .build());
 
         List<RetroMember> retroMembers = retroDto.getJoinMemberIds().stream()
                 .map(memberId -> RetroMember.builder()
                         .retroId(retroId)
                         .memberId(memberId)
-                        .auth(RetroAuth.USER).build())
+                        .auth(RetroAuth.PARTICIPANT).build())
                 .collect(Collectors.toList());
 
         retroMemberRepo.saveAll(retroMembers);

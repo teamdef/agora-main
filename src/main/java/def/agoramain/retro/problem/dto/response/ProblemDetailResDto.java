@@ -18,7 +18,7 @@ public class ProblemDetailResDto {
     @Schema(description = "문제 내용", example = "스프린트 진행률이 지난 번보다 30% 떨어짐")
     private String content;
     @Schema(description = "문제를 제기한 유저의 ID", example = "1")
-    private Long createMemberId;
+    private Long authorId;
     @Schema(description = "문제 상태", example = "Start")
     private Status status;
     @Schema(description = "시도 리스트")
@@ -28,7 +28,7 @@ public class ProblemDetailResDto {
         this.id = problem.getId();
         this.retroId = problem.getRetroId();
         this.content = problem.getContent();
-        this.createMemberId = problem.getCreateMemberId();
+        this.authorId = problem.getAuthorId();
         this.status = problem.getStatus();
         this.tries = tries;
     }

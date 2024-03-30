@@ -1,6 +1,6 @@
 package def.agoramain.retro.keep.repo;
 
-import def.agoramain.retro.entity.Keep;
+import def.agoramain.retro.keep.entity.Keep;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

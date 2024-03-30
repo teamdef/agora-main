@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Try", description = "문제 해결의 시도에 대한 API")
-@RestController()
+@RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/try")
 @RequiredArgsConstructor
 public class TryController {
@@ -25,7 +26,7 @@ public class TryController {
             @ApiResponse(responseCode = "500", description = "시도 생성 실패")
     })
     @Operation(summary = "시도 생성", description = "문제에 대한 시도를 제기합니다.")
-    @PostMapping()
+    @PostMapping
     public void saveTry(@Valid @RequestBody TryReqDto tryRequestDto) throws Exception{
         Try tryEntity = tryRequestDto.toEntity();
         this.tryService.saveTry(tryEntity);

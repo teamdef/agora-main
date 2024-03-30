@@ -20,15 +20,15 @@ public class Problem {
     @NotNull
     private String content;
     @NotNull
-    private Long createMemberId;
+    private Long authorId;
     @NotNull
     private Status status;
 
     @Builder
-    public Problem(Long retroId, String content, Long createMemberId, Status status) {
+    public Problem(Long retroId, String content, Long authorId, Status status) {
         this.retroId = retroId;
         this.content = content;
-        this.createMemberId = createMemberId;
+        this.authorId = authorId;
         this.status = status;
     }
 

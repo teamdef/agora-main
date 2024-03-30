@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum RetroAuth {
-    ADMIN, USER
+    AUTHOR, PARTICIPANT
 }
