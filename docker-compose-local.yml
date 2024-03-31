@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  agora-account:
+    image: 'teamdef/agora-back-account'
+    restart: 'unless-stopped'
+    ports:
+      - '8080:8080'
+
+  agora-main:
+    image: 'teamdef/agora-back-main'
+    restart: 'unless-stopped'
+    ports:
+      - '8090:8090'
