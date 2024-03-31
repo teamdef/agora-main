@@ -20,5 +20,6 @@
 
   - latest 로 추가하려면, 위 커맨드 이후 아래 추가 실행 
     ```
+    docker build . --tag teamdef/agora-back-main:latest
     docker push teamdef/agora-back-main:latest
     ```
