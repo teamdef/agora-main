@@ -21,3 +21,6 @@ spring:
       mode: always
       continue-on-error: false
       data-locations: classpath:data.sql
+
+jwt:
+  secret: agoraSecretKey112312341251413542364563456345342543
