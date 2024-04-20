@@ -38,4 +38,8 @@ public class Retro {
         this.authorId = authorId;
     }
 
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
 }

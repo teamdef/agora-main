@@ -60,6 +60,13 @@ public class RetroController {
         retroService.makeRetro(reqRetro);
     }
 
+    @Operation(summary = "회고 제목 변경", description = "회고 제목을 변경합니다")
+    @PatchMapping("/{retroId}")
+    public void changeRetroTitle(@PathVariable("retroId") Long retroId,
+                                 @RequestParam("title") String title) {
+        retroService.changeRetroTitle(retroId, title);
+    }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "회고 삭제 성공"),
             @ApiResponse(responseCode = "500", description = "회고 삭제 실패", content = @Content)

@@ -170,4 +170,12 @@ public class RetroService {
 
         retroMemberRepo.saveAll(retroMembers);
     }
+
+    @Transactional
+    public void changeRetroTitle(Long retroId, String title) {
+
+        Optional<Retro> retro = retroRepo.findById(retroId);
+
+        retro.ifPresent(value -> value.changeTitle(title));
+    }
 }
