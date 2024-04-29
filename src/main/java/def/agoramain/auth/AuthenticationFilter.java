@@ -32,17 +32,21 @@ public class AuthenticationFilter implements Filter {
 
         log.info("[REQUEST] {}", requestURI);
 
-        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/api-docs")) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
+        /**
+         * 안정화 전까지 검증x 안정화 이후 G/W로 인증 기능 이관
+         */
 
-        String token = httpRequest.getHeader("Authorization");
-
-        if (!jwtUtil.isValidate(token)) {
-            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 유효하지 않습니다.");
-            return;
-        }
+//        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/api-docs")) {
+//            filterChain.doFilter(servletRequest, servletResponse);
+//            return;
+//        }
+//
+//        String token = httpRequest.getHeader("Authorization");
+//
+//        if (!jwtUtil.isValidate(token)) {
+//            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 유효하지 않습니다.");
+//            return;
+//        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
