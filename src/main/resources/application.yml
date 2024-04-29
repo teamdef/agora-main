@@ -1,11 +1,29 @@
 spring:
-  profiles:
-    active: dev
+  datasource:
+    url: ${DB_URI}
+    username: ${DB_USER}
+    password: ${DB_PW}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: none
+      properties:
+        hibernate:
+          format_sql: true
+          show_sql: true
+      defer-datasource-initialization: false # ddl-auto 실행후 data.sql 실행되도록
+  #  sql:
+  #    init:
+  #      mode: always
+  #      continue-on-error: false
+  #      data-locations: classpath:data.sql
 
 server:
-  port: 8081
-  error:
-    include-stacktrace: never
+  port: ${SERVER_PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
 
 # http://localhost:8080/swagger-ui/index.html 으로 접속
 springdoc:
