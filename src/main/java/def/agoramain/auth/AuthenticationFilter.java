@@ -4,10 +4,12 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthenticationFilter implements Filter {
@@ -27,6 +29,8 @@ public class AuthenticationFilter implements Filter {
 
 
         String requestURI = httpRequest.getRequestURI();
+
+        log.info("[REQUEST] {}", requestURI);
 
         if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/api-docs")) {
             filterChain.doFilter(servletRequest, servletResponse);
