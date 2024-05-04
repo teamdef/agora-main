@@ -4,6 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-
-    Start, Finish
+    START, IN_PROGRESS, FINISH
 }

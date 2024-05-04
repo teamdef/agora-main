@@ -27,7 +27,7 @@ public class ProblemReqDto {
                 .retroId(retroId)
                 .authorId(authorId)
                 .content(content)
-                .status(Status.Start)
+                .status(Status.START)
                 .build();
     }
 }
