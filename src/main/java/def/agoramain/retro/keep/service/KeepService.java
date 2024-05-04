@@ -21,4 +21,8 @@ public class KeepService {
 
         this.keepRepo.save(keepEntity);
     }
+
+    public void deleteKeep(Long keepId){
+        this.keepRepo.deleteById(keepId);
+    }
 }

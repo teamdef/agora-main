@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +29,12 @@ public class KeepController {
     public void saveKeep(@Valid @RequestBody KeepReqDto keepReqDto) throws Exception{
         Keep keep = keepReqDto.toEntity();
         this.keepService.saveKeep(keep);
+    }
+
+    @Operation(summary = "지속할 점 삭제", description = "지속할 점을 삭제합니다.")
+    @DeleteMapping("/{keepId}")
+    public void deleteKeep(
+            @PathVariable("keepId") @NotNull Long keepId){
+        this.keepService.deleteKeep(keepId);
     }
 }
