@@ -1,5 +1,6 @@
 package def.agoramain.retro.problem.controller;
 
+import def.agoramain.retro.problem.dto.request.TryContentReqDto;
 import def.agoramain.retro.problem.dto.request.TryReqDto;
 import def.agoramain.retro.problem.entity.Try;
 import def.agoramain.retro.problem.service.TryService;
@@ -40,8 +41,8 @@ public class TryController {
     @PatchMapping("/{tryId}/content")
     public void updateTryContent(
             @PathVariable("tryId") Long tryId,
-            @RequestBody @NotNull String content) throws Exception{
-        this.tryService.updateTryContent(tryId, content);
+            @RequestBody TryContentReqDto tryContentReqDto) throws Exception{
+        this.tryService.updateTryContent(tryId, tryContentReqDto.getContent());
     }
 
     @ApiResponses(value ={

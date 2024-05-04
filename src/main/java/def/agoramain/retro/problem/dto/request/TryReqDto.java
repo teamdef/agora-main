@@ -13,7 +13,11 @@ public class TryReqDto {
     @NotNull(message = "문제 ID를 입력하세요.")
     private Long problemId;
 
-    @Schema(description = "시도 내용", example = "3일내 달성할 수 있는 목표 설정 및 추적")
+    @Schema(description = "시도 제목", example = "3일내 달성할 수 있는 목표 설정 및 추적")
+    @NotEmpty(message = "시도 제목을 입력하세요.")
+    private String title;
+
+    @Schema(description = "시도 내용", example = "@@님이 크로스체크 할 예정")
     @NotEmpty(message = "시도 내용을 입력하세요.")
     private String content;
 
@@ -25,6 +29,7 @@ public class TryReqDto {
         return Try.builder()
                 .problemId(problemId)
                 .authorId(authorId)
+                .title(title)
                 .content(content)
                 .build();
     }
