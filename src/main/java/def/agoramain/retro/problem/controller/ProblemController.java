@@ -1,5 +1,6 @@
 package def.agoramain.retro.problem.controller;
 
+import def.agoramain.retro.problem.dto.request.ProblemContentReqDto;
 import def.agoramain.retro.problem.dto.response.ProblemDetailResDto;
 import def.agoramain.retro.problem.entity.Problem;
 import def.agoramain.retro.problem.entity.Status;
@@ -67,8 +68,8 @@ public class ProblemController {
     @PatchMapping("/{problemId}/content")
     public void modifyProblemContent(
             @PathVariable("problemId") @NotNull Long problemId,
-            @RequestBody @NotNull String content) throws Exception{
-        this.problemService.modifyProblemContent(problemId, content);
+            @RequestBody ProblemContentReqDto problemContentReqDto) throws Exception{
+        this.problemService.modifyProblemContent(problemId, problemContentReqDto.getContent());
     }
 
     @ApiResponses(value = {
