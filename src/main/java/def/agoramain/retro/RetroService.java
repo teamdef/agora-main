@@ -1,5 +1,6 @@
 package def.agoramain.retro;
 
+import def.agoramain.common.MemberService;
 import def.agoramain.retro.dto.ReqRetroDto;
 import def.agoramain.retro.dto.RetroDetailDto;
 import def.agoramain.retro.dto.RetroDto;
@@ -16,26 +17,22 @@ import def.agoramain.retro.repo.RetroRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static def.agoramain.common.URL.MEMBER_DETAIL_REQUEST_URL;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RetroService {
 
+    private final MemberService memberService;
     private final KeepRepo keepRepo;
     private final ProblemRepo problemRepo;
     private final TryRepo tryRepo;
-    private final RestTemplate restTemplate = new RestTemplate();
     private final RetroRepo retroRepo;
     private final RetroMemberRepo retroMemberRepo;
 
@@ -57,7 +54,7 @@ public class RetroService {
         }).toList();
 
         // member 정보 조회
-        List<Member> members = requestMembers(uniqueMemberIds.stream().toList());
+        List<Member> members = memberService.requestMembers(uniqueMemberIds.stream().toList());
         Map<Long, Member> memberMap = members
                 .stream()
                 .collect(Collectors.toMap(Member::getId, Function.identity()));
@@ -118,7 +115,7 @@ public class RetroService {
         Long creatorId = retro.getAuthorId();
         memberIds.add(creatorId);
 
-        List<Member> members = requestMembers(memberIds);
+        List<Member> members = memberService.requestMembers(memberIds);
         List<Keep> keeps = keepRepo.findAllByRetroId(retroId);
         List<Problem> problems = problemRepo.findAllByRetroId(retroId);
 
@@ -137,20 +134,6 @@ public class RetroService {
 
         return new RetroDetailDto(retro, members, problemResults, keeps, creator);
 
-    }
-
-    public List<Member> requestMembers(List<Long> memberIds) {
-
-        List<Member> members = new ArrayList<>();
-
-        for (Long memberId : memberIds) {
-
-            ResponseEntity<Member> member = restTemplate
-                    .getForEntity(MEMBER_DETAIL_REQUEST_URL.getUrl()+"/"+memberId.toString(), Member.class);
-
-            if (member.getStatusCode().is2xxSuccessful()) members.add(member.getBody());
-        }
-        return members;
     }
 
     private void mapRetroMembers(Long retroId, ReqRetroDto retroDto) {

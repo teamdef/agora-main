@@ -21,6 +21,10 @@ public class JwtUtil {
         return !isTokenExpired(token);
     }
 
+    public String getMemberId(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     private Date extractExpiration(String token) throws ExpiredJwtException{
         return extractClaim(token, Claims::getExpiration);
     }

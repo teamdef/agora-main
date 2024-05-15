@@ -17,6 +17,12 @@ public class ProjectMember {
     private Long projectId;
     @NotNull
     private Long memberId;
-    @NotNull @Embedded @Enumerated(value = EnumType.STRING)
+    @NotNull @Enumerated(value = EnumType.STRING)
     private ProjectAuth auth;
+
+    public ProjectMember(Long projectId, Long memberId, ProjectAuth auth) {
+        this.projectId = projectId;
+        this.memberId = memberId;
+        this.auth = auth;
+    }
 }
