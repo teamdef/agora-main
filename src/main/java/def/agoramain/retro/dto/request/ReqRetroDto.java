@@ -1,4 +1,4 @@
-package def.agoramain.retro.dto;
+package def.agoramain.retro.dto.request;
 
 import def.agoramain.retro.entity.Retro;
 import lombok.Data;

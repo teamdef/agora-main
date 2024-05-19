@@ -24,7 +24,8 @@ public class ProjectService {
 
     public List<ProjectResDto> findProjectsByMember(String token) {
 
-        Long memberIdByToken = memberService.getMemberIdByToken(token);
+//        Long memberIdByToken = memberService.getMemberIdByToken(token);
+        Long memberIdByToken = 0L;
         List<Project> projects = projectRepo.getProjectsByMemberId(memberIdByToken);
 
 
@@ -62,7 +63,8 @@ public class ProjectService {
     @Transactional
     public void createProject(String token, ProjectReqDto projectReqDto) {
 
-        Long memberIdByToken = memberService.getMemberIdByToken(token);
+//        Long memberIdByToken = memberService.getMemberIdByToken(token);
+        Long memberIdByToken = 0L;
 
         Project project = Project.builder()
                 .description(projectReqDto.projectDescription())
@@ -85,7 +87,9 @@ public class ProjectService {
     @Transactional
     public void deleteProject(String token, Long id) {
 
-        Long memberId = memberService.getMemberIdByToken(token);
+//        Long memberId = memberService.getMemberIdByToken(token);
+        Long memberId = 0L;
+
 
         List<ProjectMember> projectMembers = projectMemberRepo.getProjectMemberByProjectId(id);
 

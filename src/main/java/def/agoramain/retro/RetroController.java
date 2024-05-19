@@ -1,8 +1,8 @@
 package def.agoramain.retro;
 
-import def.agoramain.retro.dto.ReqRetroDto;
-import def.agoramain.retro.dto.RetroDetailDto;
-import def.agoramain.retro.dto.RetroDto;
+import def.agoramain.retro.dto.request.ReqRetroDto;
+import def.agoramain.retro.dto.response.RetroDetailDto;
+import def.agoramain.retro.dto.response.RetroDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -63,8 +63,8 @@ public class RetroController {
     @Operation(summary = "회고 제목 변경", description = "회고 제목을 변경합니다")
     @PatchMapping("/{retroId}")
     public void changeRetroTitle(@PathVariable("retroId") Long retroId,
-                                 @RequestParam("title") String title) {
-        retroService.changeRetroTitle(retroId, title);
+                                 @RequestBody ReqRetroDto reqRetro) {
+        retroService.changeRetroTitle(retroId, reqRetro.getTitle());
     }
 
     @ApiResponses(value = {

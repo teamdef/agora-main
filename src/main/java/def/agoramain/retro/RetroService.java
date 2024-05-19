@@ -1,9 +1,9 @@
 package def.agoramain.retro;
 
 import def.agoramain.common.MemberService;
-import def.agoramain.retro.dto.ReqRetroDto;
-import def.agoramain.retro.dto.RetroDetailDto;
-import def.agoramain.retro.dto.RetroDto;
+import def.agoramain.retro.dto.request.ReqRetroDto;
+import def.agoramain.retro.dto.response.RetroDetailDto;
+import def.agoramain.retro.dto.response.RetroDto;
 import def.agoramain.retro.entity.*;
 import def.agoramain.retro.keep.entity.Keep;
 import def.agoramain.retro.keep.repo.KeepRepo;

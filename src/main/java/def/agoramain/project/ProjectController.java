@@ -28,9 +28,11 @@ public class ProjectController {
     })
     @Operation(summary = "프로젝트 목록 조회", description = "프로젝트 목록을 조회합니다.")
     @GetMapping
-    public ResponseEntity<List<ProjectResDto>> getProjects(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<ProjectResDto>> getProjects(
+//            @RequestHeader("Authorization") String token
+    ) {
 
-        return ResponseEntity.ok(projectService.findProjectsByMember(token));
+        return ResponseEntity.ok(projectService.findProjectsByMember("token"));
     }
 
     @ApiResponses(value = {
@@ -41,10 +43,10 @@ public class ProjectController {
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void createProject(
-            @RequestHeader("Authorization") String token,
+//            @RequestHeader("Authorization") String token,
             @RequestBody ProjectReqDto projectReqDto) {
 
-        projectService.createProject(token, projectReqDto);
+        projectService.createProject("token", projectReqDto);
     }
 
     @ApiResponses(value = {
@@ -54,9 +56,10 @@ public class ProjectController {
     @Operation(summary = "프로젝트 삭제", description = "프로젝트를 삭제 합니다.")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProject(@RequestHeader("Authorization") String token,
+    public void deleteProject(
+//            @RequestHeader("Authorization") String token,
                               @PathVariable("id") Long id) {
 
-        projectService.deleteProject(token, id);
+        projectService.deleteProject("token", id);
     }
 }
